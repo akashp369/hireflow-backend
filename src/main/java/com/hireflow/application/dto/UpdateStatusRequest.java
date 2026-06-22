@@ -1,0 +1,16 @@
+package com.hireflow.application.dto;
+
+import com.hireflow.common.enums.ApplicationStatus;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateStatusRequest {
+
+    @NotNull(message = "Status is required")
+    private ApplicationStatus status;
+}

@@ -1,0 +1,727 @@
+{
+	"info": {
+		"name": "HireFlow API",
+		"description": "HireFlow Job Portal Backend - Complete API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register - Seeker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.success) {",
+									"    pm.collectionVariables.set('accessToken', res.data.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', res.data.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rahul Sharma\",\n    \"email\": \"rahul@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"SEEKER\",\n    \"phone\": \"9876543210\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+					}
+				},
+				{
+					"name": "Register - Recruiter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.success) {",
+									"    pm.collectionVariables.set('accessToken', res.data.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', res.data.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Priya Recruiter\",\n    \"email\": \"priya@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"RECRUITER\",\n    \"phone\": \"9876543211\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+					}
+				},
+				{
+					"name": "Register - Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.success) {",
+									"    pm.collectionVariables.set('accessToken', res.data.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', res.data.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Admin User\",\n    \"email\": \"admin@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"ADMIN\",\n    \"phone\": \"9876543212\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+					}
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.success) {",
+									"    pm.collectionVariables.set('accessToken', res.data.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', res.data.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"rahul@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+					}
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"if (res.success) {",
+									"    pm.collectionVariables.set('accessToken', res.data.accessToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refreshToken}}\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/auth/refresh-token", "host": ["{{baseUrl}}"], "path": ["api", "auth", "refresh-token"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get My Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/user/me", "host": ["{{baseUrl}}"], "path": ["api", "user", "me"] }
+					}
+				},
+				{
+					"name": "Update My Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rahul Kumar Sharma\",\n    \"phone\": \"9999999999\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/user/me", "host": ["{{baseUrl}}"], "path": ["api", "user", "me"] }
+					}
+				},
+				{
+					"name": "Upload Profile Photo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "file", "type": "file", "src": "" }
+							]
+						},
+						"url": { "raw": "{{baseUrl}}/api/user/me/photo", "host": ["{{baseUrl}}"], "path": ["api", "user", "me", "photo"] }
+					}
+				},
+				{
+					"name": "Get User by ID (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/user/1", "host": ["{{baseUrl}}"], "path": ["api", "user", "1"] }
+					}
+				},
+				{
+					"name": "Get All Users (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/user?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "user"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete User (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/user/1", "host": ["{{baseUrl}}"], "path": ["api", "user", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Create Company (Recruiter)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"TechCorp India\",\n    \"description\": \"Leading tech company in India\",\n    \"website\": \"https://techcorp.in\",\n    \"location\": \"Bangalore\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/company", "host": ["{{baseUrl}}"], "path": ["api", "company"] }
+					}
+				},
+				{
+					"name": "Get My Company (Recruiter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/company/me", "host": ["{{baseUrl}}"], "path": ["api", "company", "me"] }
+					}
+				},
+				{
+					"name": "Update My Company (Recruiter)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"TechCorp India Pvt Ltd\",\n    \"description\": \"India's leading tech solutions company\",\n    \"location\": \"Bangalore, Karnataka\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/company/me", "host": ["{{baseUrl}}"], "path": ["api", "company", "me"] }
+					}
+				},
+				{
+					"name": "Upload Company Logo (Recruiter)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "file", "type": "file", "src": "" }
+							]
+						},
+						"url": { "raw": "{{baseUrl}}/api/company/me/logo", "host": ["{{baseUrl}}"], "path": ["api", "company", "me", "logo"] }
+					}
+				},
+				{
+					"name": "Get All Companies (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/company?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "company"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Company by ID (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": { "raw": "{{baseUrl}}/api/company/1", "host": ["{{baseUrl}}"], "path": ["api", "company", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Job",
+			"item": [
+				{
+					"name": "Create Job (Recruiter)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Java Backend Developer\",\n    \"description\": \"Looking for experienced Java developer with Spring Boot expertise\",\n    \"requirements\": \"Java 17+, Spring Boot, PostgreSQL, REST APIs, Microservices\",\n    \"location\": \"Bangalore\",\n    \"jobType\": \"FULL_TIME\",\n    \"experienceLevel\": \"MID\",\n    \"salaryMin\": 800000,\n    \"salaryMax\": 1500000,\n    \"deadline\": \"2026-07-30\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/job", "host": ["{{baseUrl}}"], "path": ["api", "job"] }
+					}
+				},
+				{
+					"name": "Get All Active Jobs (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/job?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "job"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Job by ID (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": { "raw": "{{baseUrl}}/api/job/1", "host": ["{{baseUrl}}"], "path": ["api", "job", "1"] }
+					}
+				},
+				{
+					"name": "Update Job (Recruiter)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Senior Java Backend Developer\",\n    \"salaryMin\": 1000000,\n    \"salaryMax\": 2000000,\n    \"experienceLevel\": \"SENIOR\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/job/1", "host": ["{{baseUrl}}"], "path": ["api", "job", "1"] }
+					}
+				},
+				{
+					"name": "Delete Job (Recruiter)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/job/1", "host": ["{{baseUrl}}"], "path": ["api", "job", "1"] }
+					}
+				},
+				{
+					"name": "Get My Posted Jobs (Recruiter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/job/my?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "job", "my"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Search Jobs (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/job/search?title=developer&location=bangalore&jobType=FULL_TIME&experienceLevel=MID&salaryMin=500000&page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "job", "search"],
+							"query": [
+								{ "key": "title", "value": "developer" },
+								{ "key": "location", "value": "bangalore" },
+								{ "key": "jobType", "value": "FULL_TIME" },
+								{ "key": "experienceLevel", "value": "MID" },
+								{ "key": "salaryMin", "value": "500000" },
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Resume",
+			"item": [
+				{
+					"name": "Upload Resume (Seeker)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "file", "type": "file", "src": "" }
+							]
+						},
+						"url": { "raw": "{{baseUrl}}/api/resume/upload", "host": ["{{baseUrl}}"], "path": ["api", "resume", "upload"] }
+					}
+				},
+				{
+					"name": "Get My Resumes (Seeker)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/resume", "host": ["{{baseUrl}}"], "path": ["api", "resume"] }
+					}
+				},
+				{
+					"name": "Set Default Resume (Seeker)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/resume/1/default", "host": ["{{baseUrl}}"], "path": ["api", "resume", "1", "default"] }
+					}
+				},
+				{
+					"name": "Delete Resume (Seeker)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/resume/1", "host": ["{{baseUrl}}"], "path": ["api", "resume", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Application",
+			"item": [
+				{
+					"name": "Apply to Job (Seeker)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobId\": 1,\n    \"resumeId\": 1,\n    \"coverLetter\": \"I am very interested in this role. I have 3 years of experience in Java and Spring Boot.\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/application", "host": ["{{baseUrl}}"], "path": ["api", "application"] }
+					}
+				},
+				{
+					"name": "Get My Applications (Seeker)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/application/my?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "application", "my"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Application by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/application/1", "host": ["{{baseUrl}}"], "path": ["api", "application", "1"] }
+					}
+				},
+				{
+					"name": "Get Applications for Job (Recruiter)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/application/job/1?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "application", "job", "1"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Application Status (Recruiter)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"SHORTLISTED\"\n}"
+						},
+						"url": { "raw": "{{baseUrl}}/api/application/1/status", "host": ["{{baseUrl}}"], "path": ["api", "application", "1", "status"] }
+					}
+				},
+				{
+					"name": "Withdraw Application (Seeker)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/application/1", "host": ["{{baseUrl}}"], "path": ["api", "application", "1"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Saved Jobs",
+			"item": [
+				{
+					"name": "Save a Job (Seeker)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/saved-jobs/1", "host": ["{{baseUrl}}"], "path": ["api", "saved-jobs", "1"] }
+					}
+				},
+				{
+					"name": "Unsave a Job (Seeker)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/saved-jobs/1", "host": ["{{baseUrl}}"], "path": ["api", "saved-jobs", "1"] }
+					}
+				},
+				{
+					"name": "Get All Saved Jobs (Seeker)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/saved-jobs?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "saved-jobs"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/users?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "admin", "users"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/admin/users/1", "host": ["{{baseUrl}}"], "path": ["api", "admin", "users", "1"] }
+					}
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/jobs?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "admin", "jobs"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Job",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/admin/jobs/1", "host": ["{{baseUrl}}"], "path": ["api", "admin", "jobs", "1"] }
+					}
+				},
+				{
+					"name": "Get All Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/admin/applications?page=0&size=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "admin", "applications"],
+							"query": [
+								{ "key": "page", "value": "0" },
+								{ "key": "size", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{accessToken}}" }
+						],
+						"url": { "raw": "{{baseUrl}}/api/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["api", "admin", "dashboard"] }
+					}
+				}
+			]
+		}
+	]
+}
